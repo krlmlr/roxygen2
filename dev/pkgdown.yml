@@ -1,0 +1,17 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  extending: extending.html
+  index-crossref: index-crossref.html
+  namespace: namespace.html
+  rd-formatting: rd-formatting.html
+  rd-other: rd-other.html
+  rd: rd.html
+  reuse: reuse.html
+  roxygen2: roxygen2.html
+last_built: 2023-12-23T06:37Z
+urls:
+  reference: https://roxygen2.r-lib.org/reference
+  article: https://roxygen2.r-lib.org/articles
+
