@@ -2,6 +2,13 @@
 
 ## roxygen2 (development version)
 
+- The migration from `RoxygenNote` to `Config/roxygen2/version` now
+  happens whenever it’s needed, not just when the roxygen2 version has
+  changed. This fixes two cases where the deprecated `RoxygenNote` field
+  was left in `DESCRIPTION` forever: when a collaborator using roxygen2
+  7.x re-added it after the package had already been migrated, and when
+  its value happened to match the installed version
+  ([\#1876](https://github.com/r-lib/roxygen2/issues/1876)).
 - Markdown processing now handles multibyte characters inside Rd tags
   correctly; previously a tag like `\code{café}` would corrupt the
   markdown interpretation of the text that followed it.
@@ -38,6 +45,13 @@
   a performance issue with
   [`loadNamespace()`](https://rdrr.io/r/base/ns-load.html) for packages
   that import many symbols.
+- `@inheritParams` no longer errors when a topic uses argument selection
+  in more than one tag, e.g. `@inheritParams a x` followed by
+  `@inheritParams b y`
+  ([\#1879](https://github.com/r-lib/roxygen2/issues/1879)). If the same
+  source is used in multiple tags, the union of their selections is now
+  inherited instead of the selection being ignored, so an unfiltered tag
+  inherits every parameter.
 - `@importFrom`, `@importClassesFrom`, and `@importMethodsFrom` now
   accept multi-line input, restoring the ability to spread imports
   across multiple lines for readability; continuation lines must use a
