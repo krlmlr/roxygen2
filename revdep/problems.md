@@ -1,80 +1,140 @@
-# new.dist (0.1.1)
+# checkhelper (1.0.0)
 
-* GitHub: <https://github.com/akmn35/new.dist>
-* Email: <mailto:ramazanakman12345@gmail.com>
-* GitHub mirror: <https://github.com/cran/new.dist>
+* GitHub: <https://github.com/ThinkR-open/checkhelper>
+* Email: <mailto:vincent@thinkr.fr>
+* GitHub mirror: <https://github.com/cran/checkhelper>
 
-Run `revdepcheck::cloud_details(, "new.dist")` for more info
+Run `revdepcheck::cloud_details(, "checkhelper")` for more info
 
 ## Newly broken
 
 *   checking tests ... ERROR
      ```
      ...
-       > # Where should you do additional test configuration?
-       > # Learn more about the roles of various files in:
-       > # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
-       > # * https://testthat.r-lib.org/articles/special-files.html
-       > 
-       > library(testthat)
-       > library(new.dist)
-       > 
-       > test_check("new.dist")
-       Saving _problems/test_function-246.R
-       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 232 ]
+       ══ Skipped tests (5) ═══════════════════════════════════════════════════════════
+       • On CRAN (5): 'test-audit-globals.R:8:3', 'test-audit-globals.R:22:3',
+         'test-audit-userspace.R:7:3', 'test-fix-globals.R:9:3',
+         'test-fix-globals.R:25:3'
        
        ══ Failed tests ════════════════════════════════════════════════════════════════
-       ── Error ('test_function.R:246:3'): functions returns a  vector with the expected size ──
-       <rlib_error_package_not_found/rlang_error/error/condition>
-       Error in `expect_vector(dbwd(10, alpha = 2, sigma = 2), ptype = double(), size = 1)`: The package "vctrs" is required.
+       ── Error ('test-find_missing_values.R:79:5'): find_missing_tags works ──────────
+       <usethis_error/rlang_error/error/condition>
+       Error in `check_uses_roxygen("use_pipe()")`: ✖ Package checkpackage does not use roxygen2.
+       ℹ `use_pipe()` can not work without it.
+       ℹ You might just need to run `devtools::document()` once, then try again.
        Backtrace:
            ▆
-        1. └─testthat::expect_vector(...) at test_function.R:246:3
-        2.   └─rlang::check_installed("vctrs")
+        1. ├─usethis::with_project(...) at test-find_missing_values.R:77:3
+        2. │ └─base::force(code)
+        3. └─usethis::use_pipe() at test-find_missing_values.R:79:5
+        4.   └─usethis:::check_uses_roxygen("use_pipe()")
+        5.     └─usethis:::ui_abort(...)
+        6.       └─cli::cli_abort(...)
+        7.         └─rlang::abort(...)
        
-       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 232 ]
+       [ FAIL 1 | WARN 0 | SKIP 5 | PASS 558 ]
        Error:
        ! Test failures.
        Execution halted
      ```
 
-# tnl.Test (0.1.0)
+*   checking tests ... ERROR
+     ```
+     ...
+       ══ Skipped tests (5) ═══════════════════════════════════════════════════════════
+       • On CRAN (5): 'test-audit-globals.R:8:3', 'test-audit-globals.R:22:3',
+         'test-audit-userspace.R:7:3', 'test-fix-globals.R:9:3',
+         'test-fix-globals.R:25:3'
+       
+       ══ Failed tests ════════════════════════════════════════════════════════════════
+       ── Error ('test-find_missing_values.R:79:5'): find_missing_tags works ──────────
+       <usethis_error/rlang_error/error/condition>
+       Error in `check_uses_roxygen("use_pipe()")`: ✖ Package checkpackage does not use roxygen2.
+       ℹ `use_pipe()` can not work without it.
+       ℹ You might just need to run `devtools::document()` once, then try again.
+       Backtrace:
+           ▆
+        1. ├─usethis::with_project(...) at test-find_missing_values.R:77:3
+        2. │ └─base::force(code)
+        3. └─usethis::use_pipe() at test-find_missing_values.R:79:5
+        4.   └─usethis:::check_uses_roxygen("use_pipe()")
+        5.     └─usethis:::ui_abort(...)
+        6.       └─cli::cli_abort(...)
+        7.         └─rlang::abort(...)
+       
+       [ FAIL 1 | WARN 0 | SKIP 5 | PASS 558 ]
+       Error:
+       ! Test failures.
+       Execution halted
+     ```
 
-* GitHub: <https://github.com/ihababusaif/tnl.Test>
-* Email: <mailto:censtat@gmail.com>
-* GitHub mirror: <https://github.com/cran/tnl.Test>
+*   checking tests ... ERROR
+     ```
+     ...
+       ══ Skipped tests (5) ═══════════════════════════════════════════════════════════
+       • On CRAN (5): 'test-audit-globals.R:8:3', 'test-audit-globals.R:22:3',
+         'test-audit-userspace.R:7:3', 'test-fix-globals.R:9:3',
+         'test-fix-globals.R:25:3'
+       
+       ══ Failed tests ════════════════════════════════════════════════════════════════
+       ── Error ('test-find_missing_values.R:79:5'): find_missing_tags works ──────────
+       <usethis_error/rlang_error/error/condition>
+       Error in `check_uses_roxygen("use_pipe()")`: ✖ Package checkpackage does not use roxygen2.
+       ℹ `use_pipe()` can not work without it.
+       ℹ You might just need to run `devtools::document()` once, then try again.
+       Backtrace:
+           ▆
+        1. ├─usethis::with_project(...) at test-find_missing_values.R:77:3
+        2. │ └─base::force(code)
+        3. └─usethis::use_pipe() at test-find_missing_values.R:79:5
+        4.   └─usethis:::check_uses_roxygen("use_pipe()")
+        5.     └─usethis:::ui_abort(...)
+        6.       └─cli::cli_abort(...)
+        7.         └─rlang::abort(...)
+       
+       [ FAIL 1 | WARN 0 | SKIP 5 | PASS 558 ]
+       Error:
+       ! Test failures.
+       Execution halted
+     ```
 
-Run `revdepcheck::cloud_details(, "tnl.Test")` for more info
+# REDCapExporter (0.3.5)
+
+* GitHub: <https://github.com/dewittpe/REDCapExporter>
+* Email: <mailto:peter.dewitt@cuanschutz.edu>
+* GitHub mirror: <https://github.com/cran/REDCapExporter>
+
+Run `revdepcheck::cloud_details(, "REDCapExporter")` for more info
 
 ## Newly broken
 
 *   checking tests ... ERROR
      ```
      ...
-       > # Where should you do additional test configuration?
-       > # Learn more about the roles of various files in:
-       > # * https://r-pkgs.org/tests.html
-       > # * https://testthat.r-lib.org/reference/test_package.html#special-files
+       +   {
+       +     build_r_data_package(
+       +       x            = avs_raw_core,
+       +       path         = temppath,
+       +       author_roles = list(dewittp = c("cre", "aut"))
+       +     )
+       +   },
+       +   message = function(m) {
+       +     msgs <<- c(msgs, conditionMessage(m))
+       +     invokeRestart("muffleMessage")
+       +   }
+       + )
        > 
-       > library(testthat)
-       > library(tnl.Test)
+       > pkgdir <- file.path(temppath, "rcd14465")
        > 
-       > test_check("tnl.Test")
-       Saving _problems/test_function-65.R
-       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 64 ]
-       
-       ══ Failed tests ════════════════════════════════════════════════════════════════
-       ── Error ('test_function.R:65:3'): functions returns a  vector with the expected size ──
-       <rlib_error_package_not_found/rlang_error/error/condition>
-       Error in `expect_vector(rtnl(10, 5, 10, 2), ptype = double(), size = 10)`: The package "vctrs" is required.
-       Backtrace:
-           ▆
-        1. └─testthat::expect_vector(...) at test_function.R:65:3
-        2.   └─rlang::check_installed("vctrs")
-       
-       [ FAIL 1 | WARN 0 | SKIP 0 | PASS 64 ]
-       Error:
-       ! Test failures.
+       > # check the DESCRIPTION file for the built package
+       > d <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
+       > stopifnot(
+       +   d[1, "Package"] == "rcd14465",
+       +   grepl("\\d{4}\\.\\d{2}\\.\\d{2}\\.\\d{2}\\.\\d{2}", d[1, "Version"]),
+       +   all(c("knitr", "roxygen2") %in% trimws(strsplit(d[1, "Suggests"], ",")[[1]])),
+       +   d[1, "Config/roxygen2/version"] == "8.0.0"
+       + )
+       Error: d[1, "Config/roxygen2/version"] == "8.0.0" is not TRUE
        Execution halted
      ```
 
