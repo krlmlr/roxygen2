@@ -51,6 +51,14 @@ mdxml_keep_sentence_spacing <- function(out, state) {
   )
   ends_sentence <- ends_sentence & !grepl(abbrev_re, before, perl = TRUE)
 
+  # A single letter followed by a period is an initial, not the end of a
+  # sentence: `M.E.J.` before `Newman`, or `Kratzer, S.` before `G., Harley`.
+  # Author initials sit in `@references` far more often than a sentence ends in
+  # a single capital, and a gap inserted mid-name is visible where a missing one
+  # is not, so the initial wins.
+  initials_re <- paste0("(?<![[:alnum:]])[[:alpha:]][.]", closers, "$")
+  ends_sentence <- ends_sentence & !grepl(initials_re, before, perl = TRUE)
+
   # The next line has to look like the start of a sentence. A lowercase word
   # after the break means the sentence carries on, whatever the punctuation
   # before it suggested.

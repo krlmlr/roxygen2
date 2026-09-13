@@ -105,3 +105,17 @@ test_that("a protected Rd tag after the break does not randomise the gap", {
     "Not an end\n\\code{foo} continues."
   )
 })
+
+test_that("a single-letter initial is not the end of a sentence", {
+  # Author initials in @references are far more common than a sentence ending in
+  # a single capital, and a gap inserted mid-name is visible.
+  expect_equal(
+    markdown("Newman. M.E.J.\nNewman defined it."),
+    "Newman. M.E.J.\nNewman defined it."
+  )
+  expect_equal(
+    markdown("See M. E. J.\nNewman, 2003."),
+    "See M. E. J.\nNewman, 2003."
+  )
+  expect_equal(markdown("Kratzer, S.\nG., Harley."), "Kratzer, S.\nG., Harley.")
+})
