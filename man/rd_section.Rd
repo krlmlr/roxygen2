@@ -24,7 +24,7 @@ If provide your own \code{rd_section} type, you'll also need to define a
 \verb{format.rd_section_\{type\}} method that returns formatted Rd output. You
 may also need to provide a \verb{merge.rd_section_\{type\}} method if two
 sections can not be combined with \code{rd_section(x$type, c(x$value, y$value))}.
-See \code{vignette("extending")} for more details.
+ See \code{vignette("extending")} for more details.
 }
 
 \seealso{

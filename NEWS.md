@@ -1,5 +1,7 @@
 # roxygen2 (development version)
 
+* A line break that follows the end of a sentence now keeps the sentence gap in the rendered help. commonmark discards the whitespace a break stands for, so one sentence per line used to render single-spaced while the same text wrapped to a fixed width kept the author's two spaces.
+
 # roxygen2 8.1.0
 
 * Markdown support:

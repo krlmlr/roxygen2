@@ -27,7 +27,7 @@ controlled with this argument for historical reasons.)}
 \item{load_code}{A function used to load all the R code in the package
 directory. The default, \code{NULL}, uses the strategy defined by
 the \code{load} roxygen option, which defaults to \code{\link[=load_pkgload]{load_pkgload()}}.
-See \link{load} for more details.}
+ See \link{load} for more details.}
 
 \item{clean}{If \code{TRUE}, roxygen will delete all files previously
 created by roxygen before running each roclet.}

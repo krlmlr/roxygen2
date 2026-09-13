@@ -11,11 +11,11 @@ markdown_evaluate(text)
 }
 \value{
 Text with R code expanded.
-A character vector of the same length as the input \code{text}.
+ A character vector of the same length as the input \code{text}.
 }
 \description{
 For example this becomes two: 2.
-Variables can be set and then reused, within the same
+ Variables can be set and then reused, within the same
 tag:
 The value of \code{x} is 100.
 

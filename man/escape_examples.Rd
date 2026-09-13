@@ -9,7 +9,7 @@ escape_examples(x)
 \description{
 This documentation topic is used primarily for testing and to record
 our understanding of the \verb{\\example\{\}} escaping rules.
-See \url{https://developer.r-project.org/parseRd.pdf} for the details provided
+ See \url{https://developer.r-project.org/parseRd.pdf} for the details provided
 by R core.
 }
 \examples{
