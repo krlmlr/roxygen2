@@ -55,3 +55,13 @@ test_that("a link never gains a line break", {
     "See \\link[=fcn]{this link}. Next."
   )
 })
+
+test_that("an abbreviation is not the end of a sentence", {
+  expect_equal(markdown("See e.g.\nThe manual."), "See e.g.\nThe manual.")
+  expect_equal(markdown("Loading C code, etc.)\nbut note that."), "Loading C code, etc.)\nbut note that.")
+  expect_equal(markdown("Smith et al.\nreport otherwise."), "Smith et al.\nreport otherwise.")
+})
+
+test_that("a lowercase word after the break means the sentence carries on", {
+  expect_equal(markdown("ends with a period.\nbut carries on."), "ends with a period.\nbut carries on.")
+})

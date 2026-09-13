@@ -21,8 +21,8 @@ to be out of date; \code{FALSE} otherwise.
 A lightweight check that compares modification times of \code{.Rd} files in
 \verb{man/} with the source files listed in their backrefs. This is much faster
 than running \code{\link[=roxygenize]{roxygenize()}} but can suffer from both false negatives (e.g.
- if an inherited documentation topic has changed) and false positives (e.g.
- if a source file was modified but the change doesn't affect the
+if an inherited documentation topic has changed) and false positives (e.g.
+if a source file was modified but the change doesn't affect the
 documentation).
 }
 \examples{
