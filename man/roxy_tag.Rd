@@ -59,7 +59,7 @@ For more information about error calls, see \ifelse{html}{\link[rlang:topic-erro
 }
 \description{
 \code{roxy_tag()} is the constructor for tag objects.
-\code{roxy_tag_warning()} is superseded by \code{warn_roxy_tag()}; use to generate a
+ \code{roxy_tag_warning()} is superseded by \code{warn_roxy_tag()}; use to generate a
 warning that includes the location of the tag.
 }
 \section{Methods}{

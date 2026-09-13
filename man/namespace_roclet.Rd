@@ -10,7 +10,7 @@ namespace_roclet()
 This \link{roclet} automates the production of a \code{NAMESPACE} file, which controls
 the functions imported and exported by your package, as described in
 \href{https://cran.r-project.org/doc/manuals/r-release/R-exts.html}{Writing R extensions}.
-It is run by default by \code{\link[=roxygenize]{roxygenize()}}.
+ It is run by default by \code{\link[=roxygenize]{roxygenize()}}.
 
 The \code{NAMESPACE} is generated in two passes: the first generates only
 import directives (because this can be computed without evaluating package

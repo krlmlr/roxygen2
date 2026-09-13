@@ -1,7 +1,22 @@
 expect_equivalent_rd <- function(out1, out2) {
   out1$sections$backref <- NULL
   out2$sections$backref <- NULL
-  expect_equal(out1, out2)
+  # Markdown restores the sentence gap commonmark drops, by indenting the line
+  # break that follows a sentence (see `mdxml_keep_sentence_spacing()`).
+  # Hand-written Rd carries whatever the author typed, so the two forms differ
+  # by that one space. It is a difference in representation rather than in
+  # meaning; `test-markdown-sentence-spacing.R` covers the indent itself.
+  expect_equal(rd_drop_sentence_indent(out1), rd_drop_sentence_indent(out2))
+}
+
+rd_drop_sentence_indent <- function(out) {
+  out$sections <- lapply(out$sections, function(section) {
+    if (is.character(section$value)) {
+      section$value <- gsub("\n ", "\n", section$value, fixed = TRUE)
+    }
+    section
+  })
+  out
 }
 
 expect_equal_strings <- function(s1, s2, ignore_ws = TRUE) {

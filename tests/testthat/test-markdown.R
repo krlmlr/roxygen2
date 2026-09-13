@@ -477,7 +477,7 @@ test_that("markdown emphasis is ok", {
     foo <- function() {}"
   )[[1]]
   desc1 <- r"(Description with some \emph{keywords} included.
-So far so good. \preformatted{ *these are not
+ So far so good. \preformatted{ *these are not
   emphasised*. Or are they?
 })"
   expect_equal(out1$get_section("description")[[2]], desc1)

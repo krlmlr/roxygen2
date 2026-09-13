@@ -11,16 +11,16 @@ markdown_evaluate(text)
 }
 \value{
 Text with R code expanded.
-A character vector of the same length as the input \code{text}.
+ A character vector of the same length as the input \code{text}.
 }
 \description{
 For example this becomes two: 2.
-Variables can be set and then reused, within the same
+ Variables can be set and then reused, within the same
 tag:
 The value of \code{x} is 100.
 
 We have access to the internal functions of the package, e.g.
-since this is \emph{roxygen2}, we can refer to the internal \code{markdown}
+ since this is \emph{roxygen2}, we can refer to the internal \code{markdown}
 function, and this is \code{TRUE}: TRUE.
 
 To insert the name of the current package: roxygen2.

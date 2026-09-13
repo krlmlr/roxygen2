@@ -41,6 +41,7 @@ md_to_mdxml <- function(x, ...) {
 mdxml_children_to_rd_top <- function(xml, state) {
   state$section_tag <- uuid()
   out <- map_chr(xml_children(xml), mdxml_node_to_rd, state)
+  out <- mdxml_keep_sentence_spacing(out)
   out <- c(out, mdxml_close_sections(state))
   rd <- trimws(paste0(out, collapse = ""))
   if (state$has_sections) {
@@ -55,7 +56,31 @@ mdxml_children_to_rd_top <- function(xml, state) {
 
 mdxml_children_to_rd <- function(xml, state) {
   out <- map_chr(xml_children(xml), mdxml_node_to_rd, state)
+  out <- mdxml_keep_sentence_spacing(out)
   paste0(out, collapse = "")
+}
+
+# commonmark discards the whitespace a line break stands for, so a break that
+# follows the end of a sentence would render as a single space even where the
+# author separated the two sentences with two. `Rd2txt()` renders a line break
+# followed by whitespace as two spaces after `.`, `?` and `!` -- and as one
+# space everywhere else -- so emitting the indent restores the gap exactly
+# where it is meant to be, and changes nothing anywhere else.
+#
+# Breaks are the elements `mdxml_break()` produced, which are the only ones
+# equal to a bare newline.
+mdxml_keep_sentence_spacing <- function(out) {
+  breaks <- which(out == "\n")
+  breaks <- breaks[breaks > 1L]
+  if (length(breaks) == 0L) {
+    return(out)
+  }
+
+  # Closing quotes and brackets may sit between the punctuation and the break.
+  # `perl = TRUE` because a POSIX bracket expression cannot escape `]`.
+  ends_sentence <- grepl("[.?!][)\\]\"\'`\u2019\u201d]*$", out[breaks - 1L], perl = TRUE)
+  out[breaks[ends_sentence]] <- "\n "
+  out
 }
 
 mdxml_node_to_rd <- function(xml, state) {
