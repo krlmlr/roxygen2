@@ -1,5 +1,8 @@
 test_that("a line break after a sentence keeps the sentence gap", {
-  expect_equal(markdown("Alpha ends here.\nBeta starts here."), "Alpha ends here.\n Beta starts here.")
+  expect_equal(
+    markdown("Alpha ends here.\nBeta starts here."),
+    "Alpha ends here.\n Beta starts here."
+  )
   expect_equal(markdown("Really?\nYes."), "Really?\n Yes.")
   expect_equal(markdown("Wow!\nIndeed."), "Wow!\n Indeed.")
 })
@@ -58,10 +61,47 @@ test_that("a link never gains a line break", {
 
 test_that("an abbreviation is not the end of a sentence", {
   expect_equal(markdown("See e.g.\nThe manual."), "See e.g.\nThe manual.")
-  expect_equal(markdown("Loading C code, etc.)\nbut note that."), "Loading C code, etc.)\nbut note that.")
-  expect_equal(markdown("Smith et al.\nreport otherwise."), "Smith et al.\nreport otherwise.")
+  expect_equal(
+    markdown("Loading C code, etc.)\nbut note that."),
+    "Loading C code, etc.)\nbut note that."
+  )
+  expect_equal(
+    markdown("Smith et al.\nreport otherwise."),
+    "Smith et al.\nreport otherwise."
+  )
 })
 
 test_that("a lowercase word after the break means the sentence carries on", {
-  expect_equal(markdown("ends with a period.\nbut carries on."), "ends with a period.\nbut carries on.")
+  expect_equal(
+    markdown("ends with a period.\nbut carries on."),
+    "ends with a period.\nbut carries on."
+  )
+})
+
+test_that("a protected Rd tag after the break does not randomise the gap", {
+  # `protect_rd_tags()` has already swapped each fragile tag for a placeholder
+  # built from a fresh random string, so testing the placeholder for a leading
+  # lowercase letter would decide the gap by a coin flip, differently on every
+  # run. Repeat each case often enough that a 26-in-62 flip would show up.
+  expect_stable <- function(text, expected) {
+    got <- unique(replicate(50, markdown(text)))
+    expect_equal(got, expected)
+  }
+
+  expect_stable(
+    "First sentence.\n\\doi{10.1/x}",
+    "First sentence.\n \\doi{10.1/x}"
+  )
+  expect_stable(
+    "First sentence.\n\\doi{10.1/x} and more.",
+    "First sentence.\n \\doi{10.1/x} and more."
+  )
+  expect_stable(
+    "First sentence.\n\\code{foo} is the default.",
+    "First sentence.\n \\code{foo} is the default."
+  )
+  expect_stable(
+    "Not an end\n\\code{foo} continues.",
+    "Not an end\n\\code{foo} continues."
+  )
 })

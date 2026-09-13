@@ -23,6 +23,7 @@ markdown_pass2 <- function(text, tag = NULL, sections = FALSE) {
   state <- new.env(parent = emptyenv())
   state$tag <- tag
   state$has_sections <- sections
+  state$subst_id <- attr(text, "roxygen-markdown-subst")$id
   rd <- mdxml_children_to_rd_top(mdxml, state)
 
   map_chr(rd, unescape_rd_for_md, text)
@@ -55,7 +56,7 @@ mdxml_children_to_rd_top <- function(xml, state) {
 
 mdxml_children_to_rd <- function(xml, state) {
   out <- map_chr(xml_children(xml), mdxml_node_to_rd, state)
-  paste0(mdxml_keep_sentence_spacing(out), collapse = "")
+  paste0(mdxml_keep_sentence_spacing(out, state), collapse = "")
 }
 
 mdxml_node_to_rd <- function(xml, state) {

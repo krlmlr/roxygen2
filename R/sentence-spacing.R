@@ -7,7 +7,7 @@
 #
 # Breaks are the elements `mdxml_break()` produced, which are the only ones
 # equal to a bare newline.
-mdxml_keep_sentence_spacing <- function(out) {
+mdxml_keep_sentence_spacing <- function(out, state) {
   breaks <- which(out == "\n")
   breaks <- breaks[breaks > 1L]
   if (length(breaks) == 0L) {
@@ -23,11 +23,31 @@ mdxml_keep_sentence_spacing <- function(out) {
   # A period that ends a common abbreviation does not end a sentence. Be
   # conservative: the cost of missing a gap is invisible, the cost of inserting
   # one mid-sentence is a visible change to the rendered help.
-  abbreviations <- c("e.g", "i.e", "cf", "vs", "etc", "al", "resp", "approx",
-                     "viz", "Dr", "Mr", "Mrs", "Ms", "Prof", "St", "Fig", "No")
+  abbreviations <- c(
+    "e.g",
+    "i.e",
+    "cf",
+    "vs",
+    "etc",
+    "al",
+    "resp",
+    "approx",
+    "viz",
+    "Dr",
+    "Mr",
+    "Mrs",
+    "Ms",
+    "Prof",
+    "St",
+    "Fig",
+    "No"
+  )
   abbrev_re <- paste0(
-    "(?<![[:alnum:]])(", paste(gsub(".", "[.]", abbreviations, fixed = TRUE), collapse = "|"),
-    ")[.]", closers, "$"
+    "(?<![[:alnum:]])(",
+    paste(gsub(".", "[.]", abbreviations, fixed = TRUE), collapse = "|"),
+    ")[.]",
+    closers,
+    "$"
   )
   ends_sentence <- ends_sentence & !grepl(abbrev_re, before, perl = TRUE)
 
@@ -35,8 +55,24 @@ mdxml_keep_sentence_spacing <- function(out) {
   # after the break means the sentence carries on, whatever the punctuation
   # before it suggested.
   after <- ifelse(breaks < length(out), out[pmin(breaks + 1L, length(out))], "")
+  after <- drop_rd_tag_placeholder(after, state$subst_id)
   ends_sentence <- ends_sentence & !grepl("^[[:lower:]]", after, perl = TRUE)
 
   out[breaks[ends_sentence]] <- "\n "
   out
+}
+
+# A fragile Rd tag has been swapped out for `<id>-<n>-` by `protect_rd_tags()`
+# at this point, and that id is a fresh random string on every call. Left in
+# place it would decide the test above by the case of its first character, so a
+# break before `\doi{}` or `\url{}` would gain or lose its gap at random from
+# one run to the next. Strip the placeholder instead: what remains still starts
+# with the space that separated the tag from the text after it, so a tag is
+# never mistaken for a lowercase word, and a line that begins with a tag is
+# treated as beginning a sentence.
+drop_rd_tag_placeholder <- function(x, id) {
+  if (is.null(id)) {
+    return(x)
+  }
+  sub(paste0("^(\\Q", id, "\\E-[0-9]+-)+"), "", x, perl = TRUE)
 }
