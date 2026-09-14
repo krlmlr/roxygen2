@@ -1,5 +1,7 @@
 # roxygen2 (development version)
 
+* `roxygenize()` now leaves the search path as it found it. Previously the package being documented was left attached, along with anything in its `Depends` and pkgload's shims, so its exports went on masking functions in the calling session after the call returned. Call `pkgload::load_all()` if you want the package attached afterwards.
+
 # roxygen2 8.1.0
 
 * Markdown support:
