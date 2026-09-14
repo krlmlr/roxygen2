@@ -73,6 +73,7 @@ roxygenize <- function(
   }
 
   # Now load code
+  local_restore_search_path()
   env <- load_code(base_path)
   local_roxy_meta_set("env", env)
 

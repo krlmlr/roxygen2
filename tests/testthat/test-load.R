@@ -14,6 +14,20 @@ test_that("can load simple package with load_source()", {
   expect_equal(env_get(env, "a"), 1)
 })
 
+# search path -------------------------------------------------------------
+
+test_that("local_restore_search_path() only detaches what it has to", {
+  f <- function() {
+    local_restore_search_path()
+    attach(list(x = 1), name = "roxygen_test")
+    "roxygen_test" %in% search()
+  }
+
+  before <- search()
+  expect_true(f())
+  expect_equal(search(), before)
+})
+
 # find_load_strategy ------------------------------------------------------
 
 test_that("function returned as is", {

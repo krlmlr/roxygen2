@@ -74,6 +74,23 @@ sys_source <- function(file, envir = baseenv()) {
 
 # Helpers -----------------------------------------------------------------
 
+# Loading a package attaches it, along with anything in its `Depends`, to the
+# search path. roxygen2 needs that while it evaluates package code, because an
+# Rmd included with `@includeRmd` is rendered in the global environment and can
+# only see the package if it's attached. The attachment must not outlive the
+# call though, or the package's exports go on masking functions in the caller's
+# session, so restore the search path we started with.
+local_restore_search_path <- function(frame = caller_env()) {
+  old <- search()
+
+  withr::defer(
+    for (name in setdiff(search(), old)) {
+      tryCatch(detach(name, character.only = TRUE), error = function(e) NULL)
+    },
+    envir = frame
+  )
+}
+
 find_load_strategy <- function(
   x,
   option = roxy_meta_get("load", "pkgload"),
